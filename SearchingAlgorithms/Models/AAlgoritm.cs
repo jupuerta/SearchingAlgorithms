@@ -8,7 +8,7 @@ namespace SearchingAlgorithms.Models
         {
             return Math.Abs(nodo.Item1 - objetivo.Item1) + Math.Abs(nodo.Item2 - objetivo.Item2);
         }
-
+         
         private static Nodo PickMinValueNode(List<(int, int)> listPosib, List<(int, int)> movimientos, (int, int) end)
         {
             Nodo MinNode = null;
