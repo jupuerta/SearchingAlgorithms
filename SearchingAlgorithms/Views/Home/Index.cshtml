@@ -1,0 +1,40 @@
+﻿
+@model SearchingAlgorithms.ViewModels.GridViewModel
+
+<h1>Rejilla de colores</h1>
+<button type="button" id="submitData" class="btn btn-primary" onclick="myFunction()">Click me</button>
+
+<div class="grid">
+    @for (int i = 0; i < Model.n; i++)
+    {
+        for (int j = 0; j < Model.m; j++)
+        {
+            <div class="grid-item" data-row="@i" data-col="@j" onclick="paintSquare(this)"></div>
+        }
+    }
+</div>
+
+<script>
+    let cont = 0;
+
+    function paintSquare(element) {
+        let row = element.dataset.row;
+        let col = element.dataset.col;
+
+        console.log(row);
+        console.log(col);
+
+        if (cont === 0){
+            cont = cont + 1;
+            element.style.backgroundColor = "red";
+            
+            return;
+        }
+        if (cont === 1) {
+            cont = cont + 1;
+            element.style.backgroundColor = "green";
+
+            return;
+        }
+    }
+</script>
