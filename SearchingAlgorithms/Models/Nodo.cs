@@ -7,21 +7,35 @@
         public int G { get; set; }
         public int H { get; set; }
 
-        public int CosteTotal 
-        { 
-            get 
-            { 
+        public bool Visited { get; set; }
+
+        public int CosteTotal
+        {
+            get
+            {
                 return G + H;
-            } 
+            }
         }
 
         public Nodo(int _X,
                     int _Y,
-                    int _G,
-                    int _H)
+                    (int, int) Objetive)
         {
-            X = _X; Y = _Y; 
-            G = _G; H = _H; 
+            X = _X; Y = _Y;
+            CalculateDistance(Objetive);
+        }
+
+        private void CalculateDistance((int, int) objetivo)
+        {
+            this.H = Math.Abs(X - objetivo.Item1) + Math.Abs(Y - objetivo.Item2);
+        }
+        public bool IsValidNode(int[,] matrix, int n, int m)
+        {
+            if (X < n && X >= 0 && Y < m && Y >= 0 && matrix[X, Y] == 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

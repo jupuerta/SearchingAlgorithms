@@ -4,21 +4,13 @@ namespace SearchingAlgorithms.Models
 {
     public static class AAlgoritm
     {
-        private static int CalculateDistance((int, int) nodo, (int, int) objetivo)
+        private static Nodo PickMinValueNode(Nodo node, List<(int, int)> Movements, List<Nodo> Visited, (int, int) end, int[,] matrix, int n, int m)
         {
-            return Math.Abs(nodo.Item1 - objetivo.Item1) + Math.Abs(nodo.Item2 - objetivo.Item2);
-        }
-         
-        private static Nodo PickMinValueNode(List<(int, int)> listPosib, List<(int, int)> movimientos, (int, int) end)
-        {
-            Nodo MinNode = null;
-
-            movimientos.ForEach(x => new Nodo(x.Item1, x.Item2, 0, AAlgoritm.CalculateDistance(x, end)));
-            foreach ((int, int) nodo in movimientos)
-            {
-                var punt = new Nodo(nodo.Item1, nodo.Item2, 0, AAlgoritm.CalculateDistance(nodo, end));
-            }
-
+            var min = Movements.Select(x => new Nodo(node.X + x.Item1, node.Y + x.Item2, end))
+                                .Where(w => w.IsValidNode(matrix, n, m) && !Visited.Any(e => e.X == w.X && e.Y == w.Y))
+                                .OrderBy(z => z.CosteTotal)
+                                .First();
+            return min;
         }
 
         public static int CaminoMasCorto(int[,] matrix, (int, int) begin, (int, int) end)
@@ -26,7 +18,7 @@ namespace SearchingAlgorithms.Models
             int n = matrix.GetLength(0);
             int m = matrix.GetLength(1);
 
-            List<(int, int)> list = new List<(int, int)>()
+            List<(int, int)> Movements = new List<(int, int)>()
             {
                 (1,0),
                 (0,1),
@@ -34,19 +26,24 @@ namespace SearchingAlgorithms.Models
                 (0,-1)
             };
 
-            var nodeInitial = new Nodo(begin.Item1, begin.Item2, 0, AAlgoritm.CalculateDistance(begin, end));
-            var nodeEnd = new Nodo(end.Item1, end.Item2, 0, AAlgoritm.CalculateDistance(begin, end));
+            var nodeInitial = new Nodo(begin.Item1, begin.Item2, end);
 
-            var Visitados = new List<(int, int)>() { begin };
+            var Visited = new List<Nodo>() { nodeInitial };
 
-            while (Visitados.Count()>1)
+            while (Visited.Count() > 0)
             {
-                foreach ((int, int) nodo in list)
+                var ChoosenNode = PickMinValueNode(nodeInitial, Movements, Visited, end, matrix, n, m);
+
+                Visited.Add(ChoosenNode);
+
+                if (ChoosenNode.X == end.Item1 && ChoosenNode.Y == end.Item2)
                 {
-                    var punt = new Nodo(nodo.Item1, nodo.Item2, 0, AAlgoritm.CalculateDistance(nodo, end));
+                    break;
                 }
+
+                nodeInitial = ChoosenNode;
             }
-            return 0;
+            return Visited.Count();
         }
     }
 }
