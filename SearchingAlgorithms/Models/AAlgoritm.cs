@@ -20,10 +20,12 @@ namespace SearchingAlgorithms.Models
 
             List<(int, int)> Movements = new List<(int, int)>()
             {
+                (1,1),
                 (1,0),
                 (0,1),
                 (-1,0),
-                (0,-1)
+                (0,-1),
+                (-1,-1)
             };
 
             var nodeInitial = new Nodo(begin.Item1, begin.Item2, end);
