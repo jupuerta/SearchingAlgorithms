@@ -10,7 +10,7 @@ namespace SearchingAlgorithms.Models
         {
             return Movements.Select(x => new Nodo(x.Item1 += node.X, x.Item2 += node.Y, end))
                                 .Where(w => w.IsValidNode(matrix, n, m) && !Visited.Any(e => e.X == w.X && e.Y == w.Y))
-                                .ToList();                   
+                                .ToList();
         }
 
         public NodeProcessedViewModel CaminoMasCorto(int[,] matrix, (int, int) begin, (int, int) end)
@@ -20,14 +20,14 @@ namespace SearchingAlgorithms.Models
 
             List<(int, int)> Movements = new List<(int, int)>()
             {
-                (1,-1),
-                (1,1),
-                (1,0),
-                (0,1),
-                (-1,0),
-                (0,-1),
-                (-1,-1),
-                (-1,1)
+                (1,-1),     //suroeste
+                (1,1),      //sureste
+                (1,0),      //este
+                (0,1),      //sur
+                (-1,0),     //oeste
+                (0,-1),     //norte
+                (-1,-1),    //noroeste
+                (-1,1)      //suroeste
             };
 
             var nodeInitial = new Nodo(begin.Item1, begin.Item2, end);

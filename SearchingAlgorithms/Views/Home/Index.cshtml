@@ -2,6 +2,8 @@
 @model SearchingAlgorithms.ViewModels.GridViewModel
 
 <h1>Rejilla de colores</h1>
+<button type="button" id="submitData" class="btn btn-primary">Calculate Path</button>
+<button type="button" id="resetData" onclick="ResetAll()" class="btn btn-primary">Reset Data</button>
 <button type="button" id="submitData" class="btn btn-primary">Click me</button>
 
 <div class="grid">
@@ -9,7 +11,7 @@
     {
         for (int j = 0; j < Model.m; j++)
         {
-            <div class="grid-item" data-row="@i" data-col="@j" onclick="paintSquare(this)"></div>
+            <div class="grid-item" data-row="@i" data-col="@j" onclick="PaintSquare(this)"></div>
         }
     }
 </div>

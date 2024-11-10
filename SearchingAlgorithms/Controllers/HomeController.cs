@@ -34,20 +34,29 @@ namespace SearchingAlgorithms.Controllers
             var begin = coloredSquares.Where(x => x.Detail.Equals("begin")).Select(z=> (z.X, z.Y)).FirstOrDefault();
             var end = coloredSquares.Where(x => x.Detail.Equals("end")).Select(z => (z.X, z.Y)).FirstOrDefault();
 
+            int[,] matrix = CreateMatrixInitial(coloredSquares, n, m);
+
+            return aAlgoritm.CaminoMasCorto(matrix, begin, end);
+        }
+
+        private int[,] CreateMatrixInitial(List<GridColoredSquare> coloredSquares, int n, int m)
+        {
             int[,] matrix = new int[n, m];
 
-            // Inicializar la matriz con valores
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    matrix[i, j] = 0; // Puedes cambiar este valor a lo que necesites
+                    int value = 0;
+                    if (coloredSquares.Any(x => x.Detail.Equals("barrier") && x.X==i && x.Y==j))
+                    {
+                         value = 1;
+                    }
+                    matrix[i, j] = value;
                 }
             }
-            return aAlgoritm.CaminoMasCorto(matrix, begin, end);
+            return matrix;
         }
-
-
 
 
 
