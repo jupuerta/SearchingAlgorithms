@@ -1,4 +1,4 @@
-﻿namespace SearchingAlgorithms.Models
+﻿namespace SearchingAlgorithms.Models.Entities
 {
     public class Nodo
     {
