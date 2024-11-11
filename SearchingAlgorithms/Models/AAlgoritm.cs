@@ -6,10 +6,13 @@ namespace SearchingAlgorithms.Models
 {
     public class AAlgoritm
     {
-        private IList<Nodo> PosibleNodes(Nodo node, List<(int, int)> Movements, List<Nodo> Visited, (int, int) end, int[,] matrix, int n, int m)
+        private IList<Nodo> PosibleNodes(Nodo node, List<(int, int)> Movements, List<Nodo> Visited, (int, int) end, int[,] matrix)
         {
-            return Movements.Select(x => new Nodo(x.Item1 += node.X, x.Item2 += node.Y, end))
-                                .Where(w => w.IsValidNode(matrix, n, m) && !Visited.Any(e => e.X == w.X && e.Y == w.Y))
+            var a = Movements.Select(x => new Nodo((x.Item1 > 0) ? node.X + x.Item1 : node.X + x.Item1,
+                                                  (x.Item2 > 0) ? node.Y + x.Item2 : node.Y + x.Item2,
+                                                  matrix,
+                                                  end)).ToList();
+                                return a.Where(w => w.IsValidNode() && !Visited.Any(e => e.X == w.X && e.Y == w.Y))
                                 .ToList();
         }
 
@@ -30,27 +33,32 @@ namespace SearchingAlgorithms.Models
                 (-1,1)      //suroeste
             };
 
-            var nodeInitial = new Nodo(begin.Item1, begin.Item2, end);
+            var nodeInitial = new Nodo(begin.Item1, begin.Item2, matrix, end);
 
             var Visited = new List<Nodo>() { nodeInitial };
             var Revised = new List<Nodo>();
 
             while (Visited.Count() > 0)
             {
-                var ChoosenNode = PosibleNodes(nodeInitial, Movements, Visited, end, matrix, n, m)
-                                    .OrderBy(z => z.CosteTotal)
+                var ListPosibleNodes = PosibleNodes(nodeInitial, Movements, Visited, end, matrix);
+
+                if (ListPosibleNodes.Count != 0)
+                {
+                    nodeInitial = ListPosibleNodes.OrderBy(z => z.CosteTotal)
                                     .First();
+                }
 
-                Visited.Add(ChoosenNode);
+                Revised.Remove(nodeInitial);
+                Revised.AddRange(ListPosibleNodes);
+                Visited.Add(nodeInitial);
 
-                AddNodeRevised(Revised, PosibleNodes(nodeInitial, Movements, Visited, end, matrix, n, m));
 
-                if (ChoosenNode.X == end.Item1 && ChoosenNode.Y == end.Item2)
+                if (nodeInitial.X == end.Item1 && nodeInitial.Y == end.Item2)
                 {
                     break;
                 }
 
-                nodeInitial = ChoosenNode;
+                nodeInitial = Revised.OrderBy(x => x.CosteTotal).First();
             }
             
             var result = new NodeProcessedViewModel()
@@ -59,14 +67,6 @@ namespace SearchingAlgorithms.Models
                 ListNodeRevised = Revised
             };
             return result;
-        }
-
-        private void AddNodeRevised(IList<Nodo> Revised, IList<Nodo> PosibleNodes)
-        {
-            foreach (var Nodo in PosibleNodes)
-            {
-                Revised.Add(Nodo);
-            }
         }
     }
 }

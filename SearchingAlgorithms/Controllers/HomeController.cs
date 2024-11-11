@@ -47,10 +47,10 @@ namespace SearchingAlgorithms.Controllers
             {
                 for (int j = 0; j < m; j++)
                 {
-                    int value = 0;
+                    int value = 1;
                     if (coloredSquares.Any(x => x.Detail.Equals("barrier") && x.X==i && x.Y==j))
                     {
-                         value = 1;
+                         value = 10;
                     }
                     matrix[i, j] = value;
                 }
