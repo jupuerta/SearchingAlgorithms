@@ -24,23 +24,29 @@ namespace SearchingAlgorithms.Controllers
         }
 
         [HttpPost]
-        [Route("DetallePathFollow")]
-        public NodeProcessedViewModel DetallePathFollow([FromBody] List<GridColoredSquare> coloredSquares)
+        [Route("SubmitDataAAlgorirm")]
+        public NodeProcessedViewModel SubmitDataAAlgorirm([FromBody] List<GridColoredSquare> coloredSquares)
         {
-            int n = Grid.n; 
-            int m = Grid.m;
+            var begin = GetBeginCoord(coloredSquares);
+            var end = GetEndCoord(coloredSquares);
+            int[,] matrix = CreateMatrixInitial(coloredSquares);
+
             AAlgoritm aAlgoritm = new AAlgoritm();
-
-            var begin = coloredSquares.Where(x => x.Detail.Equals("begin")).Select(z=> (z.X, z.Y)).FirstOrDefault();
-            var end = coloredSquares.Where(x => x.Detail.Equals("end")).Select(z => (z.X, z.Y)).FirstOrDefault();
-
-            int[,] matrix = CreateMatrixInitial(coloredSquares, n, m);
-
             return aAlgoritm.CaminoMasCorto(matrix, begin, end);
         }
-
-        private int[,] CreateMatrixInitial(List<GridColoredSquare> coloredSquares, int n, int m)
+        private (int, int) GetBeginCoord(List<GridColoredSquare> coloredSquares)
         {
+            return coloredSquares.Where(x => x.Detail.Equals("begin")).Select(z => (z.X, z.Y)).FirstOrDefault();
+        }
+        private (int, int) GetEndCoord(List<GridColoredSquare> coloredSquares)
+        {
+            return coloredSquares.Where(x => x.Detail.Equals("end")).Select(z => (z.X, z.Y)).FirstOrDefault();
+        }
+        private int[,] CreateMatrixInitial(List<GridColoredSquare> coloredSquares)
+        {
+            int n = Grid.n;
+            int m = Grid.m;
+
             int[,] matrix = new int[n, m];
 
             for (int i = 0; i < n; i++)

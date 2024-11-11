@@ -2,16 +2,26 @@
 @model SearchingAlgorithms.ViewModels.GridViewModel
 
 <h1>Rejilla de colores</h1>
-<button type="button" id="submitData" class="btn btn-primary">Calculate Path</button>
-<button type="button" id="resetData" onclick="ResetAll()" class="btn btn-primary">Reset Data</button>
-<button type="button" id="submitData" class="btn btn-primary">Click me</button>
 
-<div class="grid">
-    @for (int i = 0; i < Model.n; i++)
-    {
-        for (int j = 0; j < Model.m; j++)
-        {
-            <div class="grid-item" data-row="@i" data-col="@j" onclick="PaintSquare(this)"></div>
-        }
-    }
+<div class="descripcion">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
 </div>
+
+<div class="buttons">
+    <button type="button" class="btn-danger" id="resetData" onclick="ResetAll()" class="btn btn-primary">Reset Data</button>
+
+    <button type="button" id="submitDataAAlgorirm" class="btn btn-primary">A*</button>
+    <button type="button" id="submitDataDijkstra" class="btn btn-primary">Dijkstra</button>
+</div>
+
+<section class="grid-container">
+    <div class="grid">
+        @for (int i = 0; i < Model.n; i++)
+        {
+            for (int j = 0; j < Model.m; j++)
+            {
+                <div class="grid-item" data-row="@i" data-col="@j" onclick="PaintSquare(this)"></div>
+            }
+        }
+    </div>
+</section>

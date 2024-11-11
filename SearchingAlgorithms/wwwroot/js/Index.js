@@ -6,7 +6,7 @@ function ResetAll() {
     cont = 0;
     GridColoredSquare = [];
     document.querySelectorAll(".grid-item").forEach(elem => {
-        elem.style.backgroundColor = "lightgray";
+        elem.style.backgroundColor = "#cee7e5";
     });
 }
 
@@ -29,7 +29,6 @@ function PaintSquare(element) {
 }
 function PaintPath(listNodes) {
 
-    console.log(listNodes)
 
     listNodes.listNodeRevised.forEach((nodo, index) => {
         let element = document.querySelector(`.grid-item[data-row="${nodo.x}"][data-col="${nodo.y}"]`);
@@ -39,25 +38,31 @@ function PaintPath(listNodes) {
     listNodes.listPathChoosen.forEach((nodo, index) => {
         if (index !== 0 && index !== listNodes.length -1) {
             let element = document.querySelector(`.grid-item[data-row="${nodo.x}"][data-col="${nodo.y}"]`);
-            console.log(`x:"${nodo.x}" y:"${nodo.y}"`)
             element.style.backgroundColor = "blue";
         }
     });
 }
 
-document.getElementById('submitData').addEventListener('click', () => {
-    fetch('/DetallePathFollow', {
+function AjaxCalculatePath(type) {
+    fetch('/'+type, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(GridColoredSquare)
     })
-        .then(response => response.json())
-        .then(data => PaintPath(data))
-        .catch(error => console.error('Error:', error));
+    .then(response => response.json())
+    .then(data => PaintPath(data))
+    .catch(error => console.error('Error:', error));
+}
+
+document.getElementById('submitDataAAlgorirm').addEventListener('click', () => {
+    AjaxCalculatePath('SubmitDataAAlgorirm');
 });
 
+document.getElementById('submitDataDijkstra').addEventListener('click', () => {
+    AjaxCalculatePath('SubmitDataDijkstra');
+});
 document.addEventListener("mousedown", (event) => {
     if (event.button===1) {
         isMouseDown = true;
@@ -73,7 +78,6 @@ document.querySelectorAll(".grid-item").forEach(elem => {
         if (isMouseDown === true) {
             elem.style.backgroundColor = "black";
             GridColoredSquare.push({ X: elem.dataset.row, Y: elem.dataset.col, Detail: "barrier" });
-            console.log(GridColoredSquare);
         }
     });
 });
