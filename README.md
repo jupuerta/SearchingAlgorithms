@@ -1,3 +1,4 @@
+# A* Search Algoritm
 Welcome to this interactive application that uses the A algorithm* to find the shortest path between two points on a grid. Follow the detailed steps below to make the most of its features:
 
 ## 1. Mark the Start and End Points
