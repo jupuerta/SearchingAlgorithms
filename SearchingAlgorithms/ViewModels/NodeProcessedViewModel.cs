@@ -4,7 +4,7 @@ namespace SearchingAlgorithms.ViewModels
 {
     public class NodeProcessedViewModel
     {
-        public IList<Nodo>? ListPathChoosen { get; set; }
-        public IList<Nodo>? ListNodeRevised { get; set; }
+        public IList<NodeA>? ListPathChoosen { get; set; }
+        public IList<NodeA>? ListNodeRevised { get; set; }
     }
 }

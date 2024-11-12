@@ -2,6 +2,13 @@
 let GridColoredSquare = [];
 let isMouseDown = false;
 
+let colorBegin = "#2a31d1";
+let colorEnd = "#cb0000";
+
+let colorVisited = "#0d7604";
+let colorRevised = "#08af58";
+let colorBarrier = "#000000";
+
 function ResetAll() {
     cont = 0;
     GridColoredSquare = [];
@@ -16,30 +23,40 @@ function PaintSquare(element) {
 
     if (cont === 0) {
         cont = cont + 1;
-        element.style.backgroundColor = "red";
+        element.style.backgroundColor = colorBegin;
         GridColoredSquare.push({ X: row, Y: col, Detail: "begin" });
         return;
     }
     if (cont === 1) {
         cont = cont + 1;
-        element.style.backgroundColor = "green";
+        element.style.backgroundColor = colorEnd;
         GridColoredSquare.push({ X: row, Y: col, Detail: "end" });
         return;
     }
 }
 function PaintPath(listNodes) {
 
+    console.log(listNodes.listPathChoosen);
 
     listNodes.listNodeRevised.forEach((nodo, index) => {
         let element = document.querySelector(`.grid-item[data-row="${nodo.x}"][data-col="${nodo.y}"]`);
-        element.style.backgroundColor = "lightblue";
+        element.style.backgroundColor = colorRevised;
     });
 
     listNodes.listPathChoosen.forEach((nodo, index) => {
-        if (index !== 0 && index !== listNodes.length -1) {
-            let element = document.querySelector(`.grid-item[data-row="${nodo.x}"][data-col="${nodo.y}"]`);
-            element.style.backgroundColor = "blue";
+        let element = document.querySelector(`.grid-item[data-row="${nodo.x}"][data-col="${nodo.y}"]`);
+
+        if (index === 0) {
+            element.style.backgroundColor = colorBegin;
+        } else {
+            if (index === listNodes.listPathChoosen.length - 1) {
+                element.style.backgroundColor = colorEnd;
+            } else {
+                element.style.backgroundColor = colorVisited;
+            }
         }
+        
+
     });
 }
 
@@ -76,7 +93,7 @@ document.addEventListener("mouseup", () => {
 document.querySelectorAll(".grid-item").forEach(elem => {
     elem.addEventListener('mouseenter', () => {
         if (isMouseDown === true) {
-            elem.style.backgroundColor = "black";
+            elem.style.backgroundColor = colorBarrier;
             GridColoredSquare.push({ X: elem.dataset.row, Y: elem.dataset.col, Detail: "barrier" });
         }
     });

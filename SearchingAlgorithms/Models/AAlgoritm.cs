@@ -6,14 +6,14 @@ namespace SearchingAlgorithms.Models
 {
     public class AAlgoritm
     {
-        private IList<Nodo> PosibleNodes(Nodo node, List<(int, int)> Movements, List<Nodo> Visited, (int, int) end, int[,] matrix)
+        private IList<NodeA> PosibleNodes(NodeA node, List<(int, int)> Movements, List<NodeA> Visited, (int, int) end, int[,] matrix)
         {
-            var a = Movements.Select(x => new Nodo((x.Item1 > 0) ? node.X + x.Item1 : node.X + x.Item1,
+            return Movements.Select(x => new NodeA((x.Item1 > 0) ? node.X + x.Item1 : node.X + x.Item1,
                                                   (x.Item2 > 0) ? node.Y + x.Item2 : node.Y + x.Item2,
                                                   matrix,
-                                                  end)).ToList();
-                                return a.Where(w => w.IsValidNode() && !Visited.Any(e => e.X == w.X && e.Y == w.Y))
-                                .ToList();
+                                                  end))
+                                                .Where(w => w.IsValidNode() && !Visited.Any(e => e.X == w.X && e.Y == w.Y))
+                                                .ToList();
         }
 
         public NodeProcessedViewModel CaminoMasCorto(int[,] matrix, (int, int) begin, (int, int) end)
@@ -33,10 +33,10 @@ namespace SearchingAlgorithms.Models
                 (-1,1)      //suroeste
             };
 
-            var nodeInitial = new Nodo(begin.Item1, begin.Item2, matrix, end);
+            var nodeInitial = new NodeA(begin.Item1, begin.Item2, matrix, end);
 
-            var Visited = new List<Nodo>() { nodeInitial };
-            var Revised = new List<Nodo>();
+            var Visited = new List<NodeA>() { nodeInitial };
+            var Revised = new List<NodeA>();
 
             while (Visited.Count() > 0)
             {

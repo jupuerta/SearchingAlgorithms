@@ -34,6 +34,19 @@ namespace SearchingAlgorithms.Controllers
             AAlgoritm aAlgoritm = new AAlgoritm();
             return aAlgoritm.CaminoMasCorto(matrix, begin, end);
         }
+
+        [HttpPost]
+        [Route("submitDataDijkstra")]
+        public NodeProcessedViewModel submitDataDijkstra([FromBody] List<GridColoredSquare> coloredSquares)
+        {
+            var begin = GetBeginCoord(coloredSquares);
+            var end = GetEndCoord(coloredSquares);
+            int[,] matrix = CreateMatrixInitial(coloredSquares);
+
+            Dijkstra dijkstra = new Dijkstra();
+
+            return new NodeProcessedViewModel();
+        }
         private (int, int) GetBeginCoord(List<GridColoredSquare> coloredSquares)
         {
             return coloredSquares.Where(x => x.Detail.Equals("begin")).Select(z => (z.X, z.Y)).FirstOrDefault();

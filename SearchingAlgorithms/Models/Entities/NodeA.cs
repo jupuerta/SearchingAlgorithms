@@ -1,10 +1,9 @@
-﻿namespace SearchingAlgorithms.Models.Entities
+﻿using SearchingAlgorithms.Models.Entities.Base;
+
+namespace SearchingAlgorithms.Models.Entities
 {
-    public class Nodo
+    public class NodeA : Node
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int G { get; set; }
         public int H { get; set; }
 
         public bool Visited { get; set; }
@@ -17,7 +16,7 @@
             }
         }
 
-        public Nodo(int _X,
+        public NodeA(int _X,
                     int _Y,
                     int[,] matrix,
                     (int, int) Objetive)

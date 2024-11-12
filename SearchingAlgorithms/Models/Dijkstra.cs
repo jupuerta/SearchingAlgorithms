@@ -1,8 +1,8 @@
 ﻿namespace SearchingAlgorithms.Models
 {
-    public static class Dijkstra
+    public class Dijkstra
     {
-        public static int CaminoMasCortoConCostos(int[,] matriz)
+        public int CaminoMasCortoConCostos(int[,] matriz)
         {
             int n = matriz.GetLength(0);
             int m = matriz.GetLength(1);
