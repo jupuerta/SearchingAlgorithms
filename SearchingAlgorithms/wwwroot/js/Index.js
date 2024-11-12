@@ -2,11 +2,11 @@
 let GridColoredSquare = [];
 let isMouseDown = false;
 
-let colorBegin = "#2a31d1";
+let colorBegin = "#0d7604";
 let colorEnd = "#cb0000";
 
-let colorVisited = "#0d7604";
-let colorRevised = "#08af58";
+let colorVisited = "#084fb7";
+let colorRevised = "#0d6efd3d";
 let colorBarrier = "#000000";
 
 function ResetAll() {
