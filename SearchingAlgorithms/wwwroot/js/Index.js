@@ -77,9 +77,9 @@ document.getElementById('submitDataAAlgorirm').addEventListener('click', () => {
     AjaxCalculatePath('SubmitDataAAlgorirm');
 });
 
-document.getElementById('submitDataDijkstra').addEventListener('click', () => {
-    AjaxCalculatePath('SubmitDataDijkstra');
-});
+//document.getElementById('submitDataDijkstra').addEventListener('click', () => {
+//    AjaxCalculatePath('SubmitDataDijkstra');
+//});
 document.addEventListener("mousedown", (event) => {
     if (event.button===1) {
         isMouseDown = true;
