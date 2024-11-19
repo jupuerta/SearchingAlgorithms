@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SearchingAlgorithms.Models;
 using SearchingAlgorithms.Models.Entities;
+using SearchingAlgorithms.Models.Entities.Base;
 using SearchingAlgorithms.ViewModels;
 using System.Diagnostics;
 
@@ -25,7 +26,7 @@ namespace SearchingAlgorithms.Controllers
 
         [HttpPost]
         [Route("SubmitDataAAlgorirm")]
-        public NodeProcessedViewModel SubmitDataAAlgorirm([FromBody] List<GridColoredSquare> coloredSquares)
+        public NodeProcessedViewModel<NodeA> SubmitDataAAlgorirm([FromBody] List<GridColoredSquare> coloredSquares)
         {
             var begin = GetBeginCoord(coloredSquares);
             var end = GetEndCoord(coloredSquares);
@@ -37,7 +38,7 @@ namespace SearchingAlgorithms.Controllers
 
         [HttpPost]
         [Route("submitDataDijkstra")]
-        public NodeProcessedViewModel submitDataDijkstra([FromBody] List<GridColoredSquare> coloredSquares)
+        public NodeProcessedViewModel<Node> submitDataDijkstra([FromBody] List<GridColoredSquare> coloredSquares)
         {
             var begin = GetBeginCoord(coloredSquares);
             var end = GetEndCoord(coloredSquares);
@@ -45,7 +46,7 @@ namespace SearchingAlgorithms.Controllers
 
             Dijkstra dijkstra = new Dijkstra();
 
-            return new NodeProcessedViewModel();
+            return new NodeProcessedViewModel<Node>();
         }
         private (int, int) GetBeginCoord(List<GridColoredSquare> coloredSquares)
         {

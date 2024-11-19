@@ -16,7 +16,7 @@ namespace SearchingAlgorithms.Models
                                                 .ToList();
         }
 
-        public NodeProcessedViewModel CaminoMasCorto(int[,] matrix, (int, int) begin, (int, int) end)
+        public NodeProcessedViewModel<NodeA> CaminoMasCorto(int[,] matrix, (int, int) begin, (int, int) end)
         {
             int n = matrix.GetLength(0);
             int m = matrix.GetLength(1);
@@ -61,7 +61,7 @@ namespace SearchingAlgorithms.Models
                 nodeInitial = Revised.OrderBy(x => x.CosteTotal).First();
             }
             
-            var result = new NodeProcessedViewModel()
+            var result = new NodeProcessedViewModel<NodeA>()
             {
                 ListPathChoosen = Visited,
                 ListNodeRevised = Revised
